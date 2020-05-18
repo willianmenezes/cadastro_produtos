@@ -1,3 +1,13 @@
+.card {
+    border: none;
+}
+
+.card-body {
+    background-color: rgb(46, 46, 46);
+    color: white;
+}
+
+
 /* //INICIO CONFIGURAÇÃO TELA LOGIN */
 .altura-max{
     margin: 0;
