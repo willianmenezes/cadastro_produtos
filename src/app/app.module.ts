@@ -7,6 +7,7 @@ import { ErrorsModule } from './errors/errors.module';
 import { AppRoutinModule } from './app.routing.module';
 import { HomeModule } from './core/home/home.module';
 import { RequestInterceptor } from './core/interceptors/request.interceptor';
+import { ProdutoModule } from './core/produtos/produtos.module';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { RequestInterceptor } from './core/interceptors/request.interceptor';
   ],
   imports: [
     HomeModule,
+    ProdutoModule,
     BrowserModule,
     ErrorsModule,
     AppRoutinModule,

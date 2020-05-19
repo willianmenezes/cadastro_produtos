@@ -3,6 +3,9 @@ import { RouterModule, Routes } from '@angular/router'
 import { LoginComponent } from './core/home/login/login.component';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { NotAuthorizedComponent } from './errors/not-authorized/not-authorized.component';
+import { LoginGuard } from './core/guards/login.guard';
+import { ProdutoComponent } from './core/produtos/produto.component';
+import { AuthGuard } from './core/guards/auth.guard';
 
 
 const routes: Routes = [
@@ -13,7 +16,13 @@ const routes: Routes = [
     },
     {
         path: 'login',
-        component: LoginComponent
+        component: LoginComponent,
+        canActivate: [LoginGuard]
+    },
+    {
+        path: 'painel',
+        component: ProdutoComponent,
+        canActivate: [AuthGuard]
     },
     {
         path: 'not-found',
