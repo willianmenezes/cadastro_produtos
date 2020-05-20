@@ -8,6 +8,7 @@ import { AppRoutinModule } from './app.routing.module';
 import { HomeModule } from './core/home/home.module';
 import { RequestInterceptor } from './core/interceptors/request.interceptor';
 import { ProductsModule } from './core/products/products.module';
+import { LoadingModule } from './shared/loading/loading.module';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { ProductsModule } from './core/products/products.module';
     BrowserModule,
     ErrorsModule,
     AppRoutinModule,
-    HttpClientModule
+    HttpClientModule,
+    LoadingModule
   ],
   providers: [
     {

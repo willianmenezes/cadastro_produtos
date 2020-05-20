@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse, HttpClient } from '@angular/common/http';
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
-import { catchError, flatMap } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 
-import { environment } from 'src/environments/environment';
 import { UserService } from '../services/user.service';
+import { LoadingService } from 'src/app/shared/loading/loading.service';
 
 declare const alertify: any;
 
@@ -16,6 +16,7 @@ export class RequestInterceptor implements HttpInterceptor {
 
     constructor(
         private router: Router,
+        private loadingService: LoadingService,
         private userService: UserService) { }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -45,10 +46,12 @@ export class RequestInterceptor implements HttpInterceptor {
                 this.userService.deleteUserLogged();
                 alertify.error('Servidor indisponível');
                 this.router.navigate(['']);
+                this.loadingService.stop();
                 throw err;
 
             } else {
 
+                this.loadingService.stop();
                 throw err;
             } 
 
