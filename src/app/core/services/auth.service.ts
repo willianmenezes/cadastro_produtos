@@ -11,6 +11,8 @@ import { AutenticateResponse } from 'src/app/models/autenticate-response';
 })
 export class AuthService {
 
+    // classe responsável por autenticar um usuário
+
     constructor(
         private http: HttpClient,
         private userService: UserService

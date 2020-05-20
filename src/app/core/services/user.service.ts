@@ -25,6 +25,10 @@ export class UserService {
         localStorage.setItem('userLogged', 'true');
     }
 
+    deleteUserLogged() {
+        localStorage.removeItem('userLogged');
+    }
+
     getUserLogged() {
         return localStorage.getItem('userLogged');
     }

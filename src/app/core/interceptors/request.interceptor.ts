@@ -12,7 +12,10 @@ declare const alertify: any;
 @Injectable()
 export class RequestInterceptor implements HttpInterceptor {
 
+    // classe responsável por interceptar todas as requisições e realizar os tratamentos no handle da requisição
+
     constructor(
+        private router: Router,
         private userService: UserService) { }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -25,17 +28,29 @@ export class RequestInterceptor implements HttpInterceptor {
                 req = req.clone({ headers: req.headers.set('Authorization', `Basic ${userBase64}`) });
             }
 
-            if (!req.headers.has('Content-Type')) {
-                req = req.clone({ headers: req.headers.set('Content-Type', 'application/json') });
-            }
-
             req = req.clone({ headers: req.headers.set('Accept', 'application/json') });
         }
 
         return next.handle(req).pipe(catchError((err: HttpErrorResponse) => {
 
-            console.log(err);
-            throw err;
+            if (err.status == 401) {
+
+                this.userService.deleteUserLogged();
+                this.router.navigate(['']);
+                alertify.warning("Sessão expirada. Realize o login novamente.");
+                throw err;
+
+            } else if (err.status == 0 && err.statusText == "Unknown Error") {
+
+                this.userService.deleteUserLogged();
+                alertify.error('Servidor indisponível');
+                this.router.navigate(['']);
+                throw err;
+
+            } else {
+
+                throw err;
+            } 
 
         }));
     }

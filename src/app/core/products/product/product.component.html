@@ -1,0 +1,58 @@
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">{{title}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="formSalvar" (submit)="saveData()">
+                    <div class="row">
+                        <div class="col-sm-12 form-group">
+                            <label for="inputName" class="font-weight-bold">Nome:</label>
+                            <input type="text" class="form-control" id="inputName" placeholder="Nome" maxlength="200"
+                                formControlName="name">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 form-group">
+                            <label for="inputPrice" class="font-weight-bold">Preço:</label>
+                            <input type="number" class="form-control" id="inputPrice" placeholder="Nome"
+                                formControlName="price">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <button type="button" class="btn btn-dark ml-3" (click)="fileInput.click()">
+                            <i class="fa fa-image align-midle mr-3"></i>Escolher imagem
+                        </button>
+                        <div class="col-sm-12 form-group">
+                            <input  type="file" 
+                                    accept="image/jpg, image/jpeg" 
+                                    (change)="changeFile($event.target.files[0])"
+                                    hidden
+                                    #fileInput
+                                formControlName="file">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 form-group">
+                            <ng-container *ngIf="editImage != ''">
+                                <img [src]="editImage" style="height: 100%; width: 100%;">
+                            </ng-container>
+                        </div>
+                    </div>
+                    <div class="row d-flex justify-content-end">
+                        <div class="col-12 d-flex justify-content-end">
+                            <button id="btn-submit" class="mx-2 btn btn-primary" type="submit"
+                                [disabled]="!formSalvar.valid">Salvar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -7,4 +7,5 @@ import { Component } from '@angular/core';
 })
 export class ProductNavComponent {
 
+    // componente resposável de exibir o nav e suas funcionalidades
 }

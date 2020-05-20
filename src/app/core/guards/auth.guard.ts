@@ -8,12 +8,15 @@ import { UserService } from '../services/user.service';
 })
 export class AuthGuard implements CanActivate {
 
+    // classe responsável por não deixar o usuário acessar a aplicação sem estar logado
+
     constructor(
         private userService: UserService,
         private router: Router) { }
 
     canActivate(): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
 
+        // caso o user não esteja logado manda pra rota home
         if (!this.userService.getUserLogged()) {
 
             this.router.navigate(['']);

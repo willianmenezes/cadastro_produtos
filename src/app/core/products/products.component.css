@@ -1,0 +1,13 @@
+.table {
+    min-height: 350px;
+}
+
+.card-body {
+    min-height: 490px;
+}
+
+.pagination {
+    position: absolute;
+    bottom: 5px;
+    right: 15px;
+}

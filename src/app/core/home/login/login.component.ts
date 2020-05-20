@@ -15,6 +15,8 @@ import { AutenticateResponse } from 'src/app/models/autenticate-response';
 })
 export class LoginComponent implements OnInit {
 
+    // classe responsável por logar o usser na api
+
     formLogin: FormGroup;
 
     constructor(
@@ -44,6 +46,7 @@ export class LoginComponent implements OnInit {
         });
     }
 
+    // busca as propriedades do user no formulário e realiza a requisição de login
     logar() {
         const userName = this.formLogin.get('userName').value;
         const password = this.formLogin.get('password').value;
