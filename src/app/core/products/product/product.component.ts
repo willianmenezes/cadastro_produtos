@@ -39,13 +39,14 @@ export class ProductComponent implements OnChanges, OnInit {
             price: [
                 '',
                 [
-                    Validators.required
+                    Validators.required,
+                    Validators.pattern(/^[\d]{1,9}([.|,][\d]{2})?$/)
                 ]
             ],
             file: [
                 '',
                 [
-                    Validators.required
+                    Validators.required,
                 ]
             ]
         })
@@ -86,6 +87,7 @@ export class ProductComponent implements OnChanges, OnInit {
         if (this.product == null) {
 
             var product: ProductRequest = this.formSalvar.getRawValue();
+            product.price = product.price * 100;
 
             this.productService
                 .registerProduct(product, this.file)
@@ -100,13 +102,21 @@ export class ProductComponent implements OnChanges, OnInit {
                     }
                 }, err => {
                     console.log(err);
-                    alertify.success('Erro ao registrar produto');
+                    alertify.error('Erro ao registrar produto');
                 })
 
         } else {
 
+            if (this.formSalvar.get('name').invalid || this.formSalvar.get('price').invalid) {
+                
+                alertify.error('Dados inválidos, por favor verifique os campos');
+
+                return;
+            }
+
             var editProduct: EditProductRequest = this.formSalvar.getRawValue();
             editProduct.productId = this.product.productId;
+            editProduct.price = editProduct.price * 100;
 
             this.productService
                 .editProduct(editProduct, this.file)
@@ -120,19 +130,19 @@ export class ProductComponent implements OnChanges, OnInit {
                     }
                 }, err => {
                     console.log(err);
-                    alertify.success('Erro ao editar produto');
+                    alertify.error('Erro ao editar produto');
                 })
         }
     }
 
     // atribui imagem a variavel file e converte a imagem para exibir como preview
-    changeFile(file: File){
+    changeFile(file: File) {
 
         this.file = file;
 
         const reader = new FileReader();
         reader.onload = (event: any) => this.editImage = event.target.result;
-        
+
         reader.readAsDataURL(file);
-    }   
+    }
 }

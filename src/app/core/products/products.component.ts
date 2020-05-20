@@ -69,6 +69,7 @@ export class ProductsComponent implements OnInit {
 
             }, err => {
                 console.log(err)
+                alertify.error("Erro ao buscar produtos");
             })
     }
 
@@ -115,6 +116,7 @@ export class ProductsComponent implements OnInit {
 
             }, err => {
                 console.log(err)
+                alertify.error("Erro ao excluir produto");
             })
 
     }
@@ -127,13 +129,18 @@ export class ProductsComponent implements OnInit {
     // altera o input para realização do filtro
     changeInputByFilter(filter: string) {
 
+        this.pagination.nameFilter = '';
+        this.pagination.price = 0;
+
         if (filter === 'name') {
 
             this.filter = true;
+
         } else {
 
             this.filter = false;
         }
-
+        
+        this.getAllProductPaginated();
     }
 }
