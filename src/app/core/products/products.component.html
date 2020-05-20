@@ -5,14 +5,16 @@
             <div class="col-md-3">
                 <div class="form-group">
                     <label for="exampleInputtext" class="font-weight-bold">Filtro</label>
-                    <input type="text" class="form-control" id="exampleInputtext" aria-describedby="inputText"
+                    <input *ngIf="filter === true" type="text" class="form-control" id="exampleInputtext" aria-describedby="inputText"
+                        (keyup)="getByFilter($event.target.value)">
+                    <input *ngIf="filter === false" type="number" class="form-control" id="exampleInputtext" aria-describedby="inputText"
                         (keyup)="getByFilter($event.target.value)">
                 </div>
             </div>
             <div class="col-md-2">
                 <div class="form-group">
                     <label for="select-filter" class="font-weight-bold">Filtrar por:</label>
-                    <select class="form-control" id="select-filter">
+                    <select class="form-control" id="select-filter" (change)="changeInputByFilter($event.target.value)">
                         <option value="name">Nome</option>
                         <option value="price">Preço</option>
                     </select>
@@ -50,10 +52,11 @@
                                     <tr *ngFor="let product of response?.items; index as i;">
                                         <th scope="row">{{i + 1}}</th>
                                         <td>{{product.name}}</td>
-                                        <td>{{product.price | currency:'BRL'}}</td>
-                                        <td><img [src]="product.urlImage" style="height: 40px; width: 40px;"></td>
+                                        <td>R${{product.price | currency:'BRL':'':'4.2-2':'br'}}</td>
+                                        <td><img [src]="product.urlImage" class="img-thumbnail img-fluid" style="height: 40px; width: 40px;"></td>
                                         <td class="d-flex">
-                                            <button class="btn btn-warning mr-1" data-toggle="modal" data-target="#staticBackdrop" (click)="modalEditproduct(product)">
+                                            <button class="btn btn-warning mr-1" data-toggle="modal"
+                                                data-target="#staticBackdrop" (click)="modalEditproduct(product)">
                                                 <i class="fas fa-pencil-alt fa-xs"></i>
                                             </button>
                                             <button class="btn btn-danger"

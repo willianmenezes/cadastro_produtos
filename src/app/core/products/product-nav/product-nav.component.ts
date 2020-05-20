@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { UserService } from '../../services/user.service';
 
 @Component({
     selector: 'app-product-nav',
@@ -8,4 +11,10 @@ import { Component } from '@angular/core';
 export class ProductNavComponent {
 
     // componente resposável de exibir o nav e suas funcionalidades
+    constructor(private userService: UserService, private router: Router){}
+
+    logout(){
+        this.userService.deleteUserLogged();
+        this.router.navigate(['']);
+    }
 }

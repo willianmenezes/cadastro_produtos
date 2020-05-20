@@ -9,6 +9,7 @@ import { HomeModule } from './core/home/home.module';
 import { RequestInterceptor } from './core/interceptors/request.interceptor';
 import { ProductsModule } from './core/products/products.module';
 
+
 @NgModule({
   declarations: [
     AppComponent

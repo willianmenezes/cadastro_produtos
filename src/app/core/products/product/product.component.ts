@@ -96,6 +96,7 @@ export class ProductComponent implements OnChanges, OnInit {
                         $('#staticBackdrop').modal('hide');
                         this.formSalvar.reset();
                         this.productService.setUpdateList();
+                        this.closeModal();
                     }
                 }, err => {
                     console.log(err);

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import locale from '@angular/common/locales/br';
+registerLocaleData(locale, 'br');
 
 import { ProductsService } from '../services/products.service';
 import { ProductPaginationRequest } from 'src/app/models/product-pagination-request';
@@ -15,6 +18,7 @@ export class ProductsComponent implements OnInit {
 
     // classe responsável por listar todos os produtos com paginação e excluir um produto
 
+    filter: boolean = true;
     product: ProductResponse;
     response: PaginationResponse<ProductResponse>;
     pagination: ProductPaginationRequest = {
@@ -118,5 +122,18 @@ export class ProductsComponent implements OnInit {
     modalEditproduct(product: ProductResponse) {
 
         this.product = product;
+    }
+
+    // altera o input para realização do filtro
+    changeInputByFilter(filter: string) {
+
+        if (filter === 'name') {
+
+            this.filter = true;
+        } else {
+
+            this.filter = false;
+        }
+
     }
 }
